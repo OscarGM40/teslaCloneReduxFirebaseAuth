@@ -1,0 +1,62 @@
+					BUILDING TESLA WITH REDUX + FIREBASE BY ILW Yennefer
+
+Source: https://www.youtube.com/watch?v=JnaTQudNDqg
+Repo: https://github.com/alimehdiofficial/tesla-clone
+					DEPENDENCIAS Y ENLAZANDO FIREBASE
+
+Puedo crear un proyecto con :
+npx create-react-app <name> --template redux-typescript
+aunque usaré vite
+npm init vite@latest <name> -- --template react-ts
+
+Instalo las dev despues:
+>npm i react-router-dom@6 @reduxjs/toolkit react-redux @material-ui/core @material-ui/icons -S
+>npm @types/material-ui @types/react-redux -D
+
+Bien,vamos a usar Firebase como BaaS asi que creo un proyecto más alli.Como es un proyecto de testing no uso analytics.
+Habilito Auth por Email/Password(custom Auth)
+
+NOTA:code-insiders es una versión Beta inestable pero con las últimas features ya que  se actualiza cada noche.Es lo mismo que VSCode y se puede tener ambas.
+
+NOTA:puedo abrir con Window + . el selector de Emojis en cualquier SO.Viene integrado
+IMPORTANTE: puedo ver que hay un margin por defecto.Debo usar:
+* {
+  margin:0;
+}
+Fijate que el 
+body {
+  margin: 0; 
+} no era suficiente 
+
+							STARTING WITH THE NAVBAR
+
+La propiedad object-fit define como un elemento responde a la altura y ancho de su caja contenedora.Se usa para imagenes,videos y contenido embebido,en conjuncion con la propiedad object-position
+Diferencias entre los valores para object-fit:
+contain:incrementa o decrementa el tamaño de la imagen whilst(mientras que) preserva su aspect-ratio
+cover: de nuevo,incrementa o decrementa el tamaño de la imagen whilst preserving iits aspect-ratio,but often cropping the image(pero a menudo recorta la imagen)
+Es decir contain no va a recortar la imagen,pero cover si
+fill:estirará la imagen sin importar el aspect-ratio para que quepa en su content-box
+
+NOTA:la imagen por defecto estará centrada en su contenedor,pero lo puedo alterar con la propiedad object-position
+/* Positional values */
+object-position: 50% 50%; /* default position */
+object-position: right bottom;
+object-position: 20px 95px;
+object-position: center 20px; /* mix and match */
+object-position: 60% top; /* mix and match */
+
+/* Global values */
+object-position: inherit;
+object-position: initial;
+object-position: unset;
+Puedo incluso usar object-position:10px center para dejar un padding de 10px alrededor
+
+NOTA:fijate que en la web original( https://tesla.com) la navbar esta siempre visible y pegada luego la pego con position:sticky, un index de 2 para que esté arriba y la ubico con top 0 right 0 y left 0:
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+Minuto 32
