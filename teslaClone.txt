@@ -2,14 +2,15 @@
 
 Source: https://www.youtube.com/watch?v=JnaTQudNDqg
 Repo: https://github.com/alimehdiofficial/tesla-clone
+
 					DEPENDENCIAS Y ENLAZANDO FIREBASE
 
-Puedo crear un proyecto con :
+Puedo crear un proyecto con ts+redux mediante el comando:
 npx create-react-app <name> --template redux-typescript
 aunque usaré vite
 npm init vite@latest <name> -- --template react-ts
 
-Instalo las dev despues:
+Instalo las siguientes dependencias en modo dev despues:
 >npm i react-router-dom@6 @reduxjs/toolkit react-redux @material-ui/core @material-ui/icons -S
 >npm @types/material-ui @types/react-redux -D
 
@@ -31,6 +32,7 @@ body {
 							STARTING WITH THE NAVBAR
 
 La propiedad object-fit define como un elemento responde a la altura y ancho de su caja contenedora.Se usa para imagenes,videos y contenido embebido,en conjuncion con la propiedad object-position
+
 Diferencias entre los valores para object-fit:
 contain:incrementa o decrementa el tamaño de la imagen whilst(mientras que) preserva su aspect-ratio
 cover: de nuevo,incrementa o decrementa el tamaño de la imagen whilst preserving iits aspect-ratio,but often cropping the image(pero a menudo recorta la imagen)
@@ -59,4 +61,133 @@ NOTA:fijate que en la web original( https://tesla.com) la navbar esta siempre vi
   right: 0;
   z-index: 2;
 }
-Minuto 32
+
+Ojo a la propiedad gap para separar una coleccion de hijos.Me evitará usar margin-right,ya que el último realmente no la necesita:
+
+.header__links {
+  display: flex;
+  /* ojo a la nueva propiedad gap para los hijos */
+  gap:15px;
+} Genial  
+
+IMPORTANTE: fijate que display:none va a cambiar el justify content pues los dos elementos dejarán de tener un ancho.En este caso es mejor usar visibility:hidden y simplemente ocultarlos,asi no me cambian el layout:
+ <Link to="/" className={ isMenuOpen ? "header__link--hidden":""}>Shop</Link>
+
+También junto con ocultar estos dos enlaces vamos a mostrar ese rightbar:
+{ isMenuOpen && <Menu />}
+
+IMPORTANTE: asi es como se crea un sidebar.La clave es la position fixed,el overflow en scroll es superimportante,ojo y el min-width:
+.sidebar{
+  position:fixed;
+  overflow-y: scroll;
+  top:0;
+  bottom:0;
+  right:0;
+  min-width: 300px;
+  bacground-color: white;
+  z-index:1;
+  
+Fijate la diferencia entre sticky para la navbar del top y en fixed para las laterales.La clave es esto,además de usar el min-width y overflow-y en scroll.
+
+TIPS: puedo ocultar la scrollbar tipeando 'hide scrollbar w3schools'.En este caso además solo quiero ocultarla de nuestro menu,luego en vez de apuntar a .example que apunte a ese sidebar(fijate que esto me hace falta en la app):
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+TIP DOS: puedo buscar en goggle por 'perfect full page background-images'.En cualquier enlace,como el de csstricks me darán el css:
+
+.headerBlock{
+  background: url('https://tesla.com/ns_videos/model-3-social.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+NOTA: fijate como ha puesto la imagen debajo con absoluta y subió la navbar ,de esta forma la imagen está debajo.
+IMPORTANTE: display grid es lo mismo que decir display flex y flexdirection column:
+ 
+  display: grid; <- fijate que lo pone en flex y en direction column
+  place-items: center;
+}
+
+NOTA: fijate que vamos a descargar la fuente Gotham e instalarla en el SO,aunque yo la proporcionaré mejor en el proyecto:
+
+Puedo descargar cualquier fuente al completo en un comprimido aqui:
+You can download this font here: https://freefontsfamily.com
+
+					 FORMULARIOS CON REACT-HOOK-FORM
+
+Puedo usar 'react-hook-form' para formularios.Parece bastante buena y eficiente.
+>npm i react-hook-form
+
+import { useForm } from 'react-hook-form';
+
+Puedo ver la doc oficial,pero para TS es asi.Me traigo también SubmitHandler:
+
+import { useForm, SubmitHandler } from "react-hook-form";
+
+Creo un type o interface para el form
+type FormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+ Y poco más,eso si voy pasando la interface como genérico...
+
+  const { register, handleSubmit } = useForm<FormValues>();
+  const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("firstName")} />
+      <input {...register("lastName")} />
+      <input type="email" {...register("email")} />
+
+      <input type="submit" />
+    </form>
+ const { register, handleSubmit, watch, formState } = useForm();
+
+Fijate ,simplemente un pequeño cambio en el background-color con una transition y un border-radius lo bien que queda:
+
+.login__language {
+  display: flex;
+  gap:5px;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 15px;
+  transition: all 0.4s ease-in-out;
+}
+
+.login__language:hover {
+  background-color:hsla(0,0%,50.2%,.125);
+}
+
+Fijate que puedo centrar un div usando margin-left y margin-right,asi me aseguro que no toco el margin top y bottom:
+
+.login__info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 350px;
+  margin-left: auto; <- esta
+  margin-right: auto; <- y esta
+}
+1h50m
+

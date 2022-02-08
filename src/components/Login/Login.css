@@ -1,0 +1,92 @@
+.login {
+  padding: 25px;
+  padding-top: 15px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap:70px;
+}
+
+
+
+.login__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+}
+
+.login__logo > a > img{
+  width: 90px;
+  object-fit: contain;
+}
+
+.login__language {
+  display: flex;
+  gap:5px;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 15px;
+  transition: all 0.4s ease-in-out;
+}
+
+.login__language:hover {
+  background-color:hsla(0,0%,50.2%,.125);
+}
+
+.login__language > span {
+  font-weight: 700;
+}
+
+.login__info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login__info > h1 {
+  font-weight: bold;
+  font-size: 38px;
+  margin-left: -10px;
+  margin-bottom: 15px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__form > label{
+  color: #5c5e62;
+  font-weight: bold;
+  font-size: 15px;
+  padding-left: 20px;
+  padding-bottom: 5px;
+}
+
+.login__form > input {
+  margin-bottom: 30px;
+  background-color: #f4f4f4;
+  border: 1px solid #f4f4f4;
+  outline:none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  color: #393c41;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.login__form > input:focus {
+  border: 1px solid #d6d6d6;
+  transition: all .2s;
+}
+
+.login__form > button {
+
+}
