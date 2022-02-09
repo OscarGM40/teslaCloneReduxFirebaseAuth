@@ -1,14 +1,14 @@
-.login {
+.signup {
   padding: 25px;
   padding-top: 15px;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 150px;
+  gap: 50px;
 }
 
 
-.login__header {
+.signup__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,12 +16,12 @@
   top: 0;
 }
 
-.login__logo > a > img{
+.signup__logo > a > img{
   width: 90px;
   object-fit: contain;
 }
 
-.login__language {
+.signup__language {
   display: flex;
   gap:5px;
   align-items: center;
@@ -32,15 +32,15 @@
   transition: all 0.4s ease-in-out;
 }
 
-.login__language:hover {
+.signup__language:hover {
   background-color:hsla(0,0%,50.2%,.125);
 }
 
-.login__language > span {
+.signup__language > span {
   font-weight: 700;
 }
 
-.login__info {
+.signup__info {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -49,19 +49,19 @@
   margin-right: auto;
 }
 
-.login__info > h1 {
+.signup__info > h1 {
   font-weight: bold;
   font-size: 44px;
-  margin-left: -10px;
+  margin-left: -60px;
   margin-bottom: 15px;
 }
 
-.login__form {
+.signup__form {
   display: flex;
   flex-direction: column;
 }
 
-.login__form > label{
+.signup__form > label{
   color: #5c5e62;
   font-weight: bold;
   font-size: 15px;
@@ -69,7 +69,7 @@
   padding-bottom: 5px;
 }
 
-.login__form > input {
+.signup__form > input {
   margin-bottom: 30px;
   background-color: #f4f4f4;
   border: 1px solid #f4f4f4;
@@ -81,30 +81,31 @@
   font-size: 16px;
 }
 
-.login__form > input:focus {
+.signup__form > input:focus {
   border: 1px solid #d6d6d6;
   transition: all .2s;
 }
 
-.login__divider {
+.signup__divider {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
   align-items: center;
 }
 
-.login__divider > hr {
+.signup__divider > hr {
   width: 40%;
   height: 0;
   opacity: 0.3;
 }
 
-.login__divider > span {
+.signup__divider > span {
   font-weight: bold;
-  /* font-size: 15px; */
   color: #5c5e62;
 }
 
-
+.signup__buttonSecondary {
+  margin-bottom: 80px; 
+}
 
 

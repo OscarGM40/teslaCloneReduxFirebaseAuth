@@ -189,5 +189,98 @@ Fijate que puedo centrar un div usando margin-left y margin-right,asi me aseguro
   margin-left: auto; <- esta
   margin-right: auto; <- y esta
 }
-1h50m
+
+Fijate como no dió un height a los hr con el <span> OR </span>
+.login__divider > hr {
+  width: 40%;
+  height: 0;
+  opacity: 0.3;
+}
+
+Recuerda que un hover sobre un boton haciendole switch cn el color de los bordes es,o similar es muy bonito:
+.buttonSecondary {
+  background-color: transparent;
+  border: 3px solid #171a20;
+  width: 100%;
+  padding: 10px 40px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  color: #171a20;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  font-size: 18px;
+
+}
+
+.buttonSecondary:hover {
+  background-color: #171a20; <- el color del texto ahora es el background
+  color: white; y el background de antes ahora es el color
+
+				2H	IMPLEMENTING REDUX + FIREBASE
+
+Cuando use TS puedo traerme también PayloadAction para tipar el payload<T> como quiera:
+
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+}
+Y ahora puedo tipar cada Payload.Perfecto:
+ reducers: {
+    login(state, action: PayloadAction<User>) {
+      state.user = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    }
+  }
+Fijate que cada action.payload le puedo pasar un T diferente.
+
+Aparte,si uso TS ya no puedo exportar por defecto a configureStore:
+export const store =  configureStore({
+  reducer: {
+    userSlice: userReducer,
+  }
+});
+
+/* exports para los customHooks */
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+Pues necesito entrar a store.dispatch y store.getState
+
+En otro file importo los hooks normales,estos dos types y a TypedUseSelectorHook:
+
+import { TypedUseSelectorHook,useDispatch,useSelector } from 'react-redux';
+import { AppDispatch, RootState } from './store';
+
+/* y exporto mis custom hooks tipados correctamente */
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+ENLAZANDO con Firebase: en el proyecto de Firebase le enlazo un web.Desde este momento necesitaré la dependencia npm firebase:
+>npm i firebase
+
+NOTA: si seleccioné Firebase Hosting necesitaré instalar firebase-tools en global,ya que me instala la CLI necesaria
+>npm i -g firebase-tools
+
+Es solo seguir la doc.Fijate que en la version 9 cambiaron alguna cosilla,como que tengo que guardar la instancia que me devuelve llamar a getAuth:
+
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth(); <- guardo la instancia de FirebaseAuth
+
+y llamo al metodo con un email y password
+
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+
+Creo que tanto registrarse como simplemente logearse,ambos retornan lo mismo,pero el primero crea el usuario(confirmar).Podria cambiasr los nombres para diferenciar.
+2h44m
 
