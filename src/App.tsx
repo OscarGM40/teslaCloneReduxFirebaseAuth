@@ -12,6 +12,7 @@ import HeaderBlock from "./components/HeaderBlock/HeaderBlock";
 import Login from "./components/Login/Login";
 import { useAppSelector } from "./app/hooks";
 import Signup from "./components/Signup/Signup";
+import TeslaAccount from "./components/TeslaAccount/TeslaAccount";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -31,15 +32,34 @@ function App() {
               </>
             }
           ></Route>
-
           {!!!user ? (
             <Route path="/login" element={<Login />} />
           ) : (
             <Navigate to="/teslaaccount" replace />
           )}
-         
-          <Route path="/signup" element={<Signup />} />
-          
+          {!!!user ? (
+            <Route path="/signup" element={<Signup />} />
+          ) : (
+            <Navigate to="/login" replace />
+          )}
+        
+          <Route
+            path="/teslaaccount"
+            element={
+              !user ? (
+                <>
+                  <TeslaAccount
+                    isMenuOpen={isMenuOpen}
+                    setIsMenuOpen={setIsMenuOpen}
+                  />
+                  {isMenuOpen && <Menu />}
+                </>
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+
         </Routes>
       </div>
     </Router>

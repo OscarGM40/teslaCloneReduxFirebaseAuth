@@ -263,6 +263,8 @@ NOTA: si seleccioné Firebase Hosting necesitaré instalar firebase-tools en glo
 
 Es solo seguir la doc.Fijate que en la version 9 cambiaron alguna cosilla,como que tengo que guardar la instancia que me devuelve llamar a getAuth:
 
+PAra el registro usaré createUserWithEmailAndPassword:
+
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth(); <- guardo la instancia de FirebaseAuth
@@ -281,6 +283,29 @@ createUserWithEmailAndPassword(auth, email, password)
     // ..
   });
 
-Creo que tanto registrarse como simplemente logearse,ambos retornan lo mismo,pero el primero crea el usuario(confirmar).Podria cambiasr los nombres para diferenciar.
-2h44m
+Creo que tanto registrarse como simplemente logearse,ambos retornan lo mismo,pero el primero crea el usuario(confirmar).Podria cambiasr los nombres para diferenciar
+Y si es un login en vez de llamar a createUserWithEmailAndPassword llamo a  signInWithEmailAndPassword:
+
+ signInWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        // Signed in, luego lo guardo en el store
+        dispatch(
+          login({
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+            displayName: userCredential.user.displayName,
+          })
+        );
+
+
+IMPORTANTE: ahora lo mejor parece que es usar condicionales en la propiedad element:
+<Route path="/auth" element={this.state.token ? <Navigate to="/competition" /> : AuthPage}
+
+La propiedad filter puede convertir de negro a blanco o de blanco a negro:
+.teslaAccount__logo > a > img {
+  object-fit: contain;
+  width: 80px;
+  filter: brightness(0) invert(1);
+}
+Como era negro las letras se quedarán blancas.
 

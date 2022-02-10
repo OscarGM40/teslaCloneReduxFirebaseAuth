@@ -1,9 +1,14 @@
 import { LanguageOutlined } from "@material-ui/icons";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import "./Signup.css";
+import { firebaseApp } from "../../firebase";
+import { useAppDispatch } from "../../app/hooks";
+import { login,  } from '../../features/userSlice';
+
 
 type FormValues = {
   email: string;
@@ -13,9 +18,49 @@ type FormValues = {
 };
 
 const Signup = () => {
+  
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const { register, handleSubmit, reset } = useForm<FormValues>();
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
+
+    if(!data.fName){
+      return alert("Please enter your first name");
+    } else if(!data.lName){
+      return alert("Please enter your last name");
+    } else if(!data.email){
+      return alert("Please enter your email");
+    } else if(!data.password){
+      return alert("Please enter your password");
+    }
+
+    const auth = getAuth(firebaseApp);
+
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        // Signed in, luego lo guardo en el store
+        dispatch(
+          login({
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+            displayName: data.fName,
+          })
+        );
+
+        console.log(userCredential.user);
+        // ... redireccionar
+        navigate("/teslaaccount");
+        reset();
+      })
+      .catch((error) => {
+        /* es super importante gestionar los errores */
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   };
 
   return (

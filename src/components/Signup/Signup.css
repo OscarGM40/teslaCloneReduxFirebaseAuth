@@ -104,7 +104,7 @@
   color: #5c5e62;
 }
 
-.signup__buttonSecondary {
+.signup__info > a > button {
   margin-bottom: 80px; 
 }
 

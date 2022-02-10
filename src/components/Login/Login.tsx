@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 import ButtonSecondary from '../ButtonSecondary/ButtonSecondary';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
 import './Login.css';
@@ -29,18 +29,20 @@ const Login = () => {
     console.log(data);
     const auth = getAuth(firebaseApp);
 
-    createUserWithEmailAndPassword(auth, data.email, data.password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in, luego lo guardo en el store
-        dispatch(login({
-          email: userCredential.user.email,
-          uid: userCredential.user.uid,
-          displayName: userCredential.user.displayName,
-        }));
+        dispatch(
+          login({
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+            displayName: userCredential.user.displayName,
+          })
+        );
 
         console.log(userCredential.user);
         // ... redireccionar
-        navigate('/teslaaccount');
+        navigate("/teslaaccount");
         reset();
       })
       .catch((error) => {
