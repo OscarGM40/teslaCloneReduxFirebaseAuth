@@ -309,3 +309,26 @@ La propiedad filter puede convertir de negro a blanco o de blanco a negro:
 }
 Como era negro las letras se quedarán blancas.
 
+Fijate que queremos persistir la sesión según se entre al home:
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in already
+        dispatch(login({
+          email: user.email,
+          displayName: user.displayName,
+          uid: user.uid,
+        }));
+      } else {
+        // User is signed out
+        dispatch(logout());
+      }
+    });
+  }, []);
+
+Para realizar el deploy puedo usar firebase-cli:
+>firebase init
+eligo hosting,y el proyecto actual.En cuanto al directorio publico será build,y no public.
+Tras esto hago el deploy:
+>firebase deploy
+Con lo que  puedo ver que son dos comandos(al final el error fue mio de sobreescribir el index)
