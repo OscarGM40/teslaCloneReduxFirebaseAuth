@@ -1,7 +1,9 @@
 import { Close, Menu } from "@material-ui/icons";
+import { getAuth } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logout } from "../../features/userSlice";
+import { firebaseApp } from "../../firebase";
 import Car from "../Car/Car";
 import "./TeslaAccount.css";
 
@@ -11,13 +13,21 @@ type Props = {
 };
 
 const TeslaAccount = ({ isMenuOpen, setIsMenuOpen }: Props) => {
+  const auth = getAuth(firebaseApp);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.userSlice.user);
 
   const logoutOfApp = () => {
-    dispatch(logout());
+    auth.signOut()
+    .then(() => {
+      dispatch(logout());
+      navigate("/");      
+      })
+    .catch((error) => {
+      alert(error.message);
+    });
   };
 
   return (
@@ -56,7 +66,9 @@ const TeslaAccount = ({ isMenuOpen, setIsMenuOpen }: Props) => {
 
       <div className="teslaAccount__info">
         <div className="teslaAccount__person">
-          <h4>{user?.displayName} + "'s"</h4>
+          <h4>{` ${
+            user?.displayName || JSON.parse(localStorage.getItem("user")!) 
+          }'s Tesla`}</h4>
         </div>
         <div className="teslaAccount__infoRight">
           <Link to="">Home</Link>

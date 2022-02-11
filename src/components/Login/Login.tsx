@@ -32,6 +32,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in, luego lo guardo en el store
+        console.log(userCredential.user);
         dispatch(
           login({
             email: userCredential.user.email,
@@ -40,7 +41,6 @@ const Login = () => {
           })
         );
 
-        console.log(userCredential.user);
         // ... redireccionar
         navigate("/teslaaccount");
         reset();

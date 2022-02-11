@@ -48,9 +48,10 @@ const Signup = () => {
             uid: userCredential.user.uid,
             displayName: data.fName,
           })
-        );
-
+          );
+        localStorage.setItem('user', JSON.stringify(data.fName));
         console.log(userCredential.user);
+
         // ... redireccionar
         navigate("/teslaaccount");
         reset();
